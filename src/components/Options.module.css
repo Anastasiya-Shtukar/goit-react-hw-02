@@ -1,0 +1,5 @@
+.divBtn {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 15px;
+}
