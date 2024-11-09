@@ -19,9 +19,13 @@ function App() {
     };
   });
 
-  useEffect(() => {
-    window.localStorage.setItem("key", JSON.stringify(counter));
-  }, [counter]);
+  try {
+    useEffect(() => {
+      window.localStorage.setItem("key", JSON.stringify(counter));
+    }, [counter]);
+  } catch (error) {
+    console.error(error);
+  }
 
   const updateFeedback = (feedbackType) => {
     setCounter((prev) => {
@@ -44,9 +48,15 @@ function App() {
   };
 
   const totalFeedback = counter.good + counter.neutral + counter.bad;
-  const positiveFeedback = Math.round(
-    ((counter.good + counter.neutral) / totalFeedback) * 100
-  );
+
+  let positiveFeedback;
+  if (totalFeedback > 0) {
+    positiveFeedback = Math.round(
+      ((counter.good + counter.neutral) / totalFeedback) * 100
+    );
+  } else {
+    positiveFeedback = 0;
+  }
 
   return (
     <>
